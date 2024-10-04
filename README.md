@@ -24,7 +24,7 @@
 
 ## 👨‍💻 스터디 팀원 소개
   
-| 얀/김이안   🫥| [GitHub Profile🔗](https://github.com/2anizirong) 
+| 얀/김이안  🫥| [GitHub Profile🔗](https://github.com/2anizirong) 
 
 | 리니/김아린 💫| [GitHub Profile🔗](https://github.com/alynn520) 
 
