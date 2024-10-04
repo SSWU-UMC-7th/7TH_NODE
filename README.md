@@ -1,5 +1,3 @@
-# sswu-UMC-nodejs# 7TH_NODE
-
 ## 🌐UMC SSWU Server(Node.js) 스터디 팀
 
 안녕하세요 Node.js를 배우고, 프로젝트를 통해 함께 성장하는 UMC SSWU Node.js 스터디 팀입니다🔥
@@ -24,7 +22,7 @@
 - 코드 리뷰 및 피드백을 통해 프로젝트 개선 (깃허브 리퀘스트 사용)
 
 
-  ## 👨‍💻 스터디 팀원 소개
+## 👨‍💻 스터디 팀원 소개
   
 | 얀/김이안   🫥| [GitHub Profile🔗](https://github.com/2anizirong) 
 
