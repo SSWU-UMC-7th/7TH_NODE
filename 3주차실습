@@ -1,0 +1,76 @@
+{  "missions": [
+    {
+      "missionId": 1,
+      "title": "Complete the daily challenge",
+      "status": "ongoing",
+      "reward": 100,
+      "store": {
+        "name": "Store A",
+        "address": "Address 1"
+      }
+    },
+    ...
+  ]
+}
+
+{
+  "missionId": "ID",
+  "rating": 4,
+  "comment": "Great experience!"
+}
+
+
+  "reviewId": 101,
+  "message": "Review submitted successfully"
+}
+
+
+  "error": "Mission not found or already reviewed."
+}
+
+
+
+  "missions": [
+    {
+      "missionId": 1,
+      "title": "Complete a challenge",
+      "status": "ongoing",
+      "reward": 150,
+      "store": {
+        "name": "Store A",
+        "address": "Address 1"
+      }
+    },
+    ...
+  ]
+}
+
+{
+  "missions": [
+    {
+      "missionId": 2,
+      "title": "Completed a weekly challenge",
+      "status": "completed",
+      "reward": 200,
+      "store": {
+        "name": "Store B",
+        "address": "Address 2"
+      }
+    },
+    ...
+  ]
+}
+
+
+{
+  "missionId": 1,
+  "status": "completed",
+  "message": "Mission successfully marked as completed."
+}
+
+{
+  "username": "soosoo",
+  "email": "soo2023@gmail.com",
+  "password": "secure_password",
+  "confirmPassword": "secure_password"
+}
