@@ -16,17 +16,6 @@ export const pool = mysql.createPool({
   queueLimit: 0, // getConnection에서 오류가 발생하기 전에 Pool에 대기할 요청의 개수 한도
 });
 
-export const poolW5 = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  port: process.env.DB_PORT || 3306,
-  database: process.env.DB_NAME_W5 || "UMC_W5", // 새 데이터베이스 이름
-  password: process.env.DB_PASSWORD || "Lausanne2517!",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
-
 const testConnection = async () => {
   try {
     const conn = await pool.getConnection();
