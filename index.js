@@ -22,12 +22,6 @@ app.get("/", (req, res) => {
 // user API
 app.post("/api/v1/users/signup", handleUserSignUp);
 
-// 리뷰 등록 API
-app.post("/api/v1/reviews", handleReviewSignUp);
-
-// 미션 도전 API
-app.post("/api/v1/missions/challenge", handleMissionChallengeSignUp);
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
