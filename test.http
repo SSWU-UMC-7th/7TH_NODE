@@ -1,0 +1,39 @@
+### 가게 추가 요청
+POST http://localhost:3000/api/stores
+Content-Type: application/json
+
+{
+  "storeName": "Awesome Cafe",
+  "address": "123 Coffee Street",
+  "regionId": 1
+}
+
+### 가게 리뷰 추가 요청
+POST http://localhost:3000/api/reviews
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "storeId": 1,
+  "rating": 5,
+  "reviewText": "Great coffee and ambiance!"
+}
+### 가게 미션 추가 요청
+POST http://localhost:3000/api/missions
+Content-Type: application/json
+
+{
+  "regionId": 1,
+  "description": "Visit all cafes in the area",
+  "missionStatus": "수행 중"
+}
+
+### 미션 도전 요청
+POST http://localhost:3000/api/challenges
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "missionId": 1,
+  "storeId": 1
+}
