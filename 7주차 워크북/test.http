@@ -1,0 +1,64 @@
+### 특정 지역에 가게 추가
+POST http://localhost:3000/api/stores
+Content-Type: application/json
+
+{
+  "storeName": "Awesome Cafe",
+  "address": "123 Coffee Street",
+  "regionId": 1
+}
+
+### 가게에 리뷰 추가
+POST http://localhost:3000/api/reviews
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "storeId": 1,
+  "rating": 5,
+  "reviewText": "Amazing coffee and cozy atmosphere!"
+}
+
+### 미션 추가
+POST http://localhost:3000/api/missions
+Content-Type: application/json
+
+{
+  "regionId": 1,
+  "missionStatus": "IN_PROGRESS",
+  "description": "Discover Seoul's best coffee shops"
+}
+
+### 미션 도전 (가게의 미션을 도전 중인 미션에 추가)
+POST http://localhost:3000/api/user-missions
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "missionId": 1,
+  "storeId": 1,
+  "status": "IN_PROGRESS"
+}
+
+### 특정 가게의 리뷰 목록 조회 - 첫 페이지
+GET http://localhost:3000/api/stores/1/reviews?cursor
+Content-Type: application/json
+
+
+### 내 리뷰 목록 조회 
+GET http://localhost:3000/api/users/1/reviews?cursor
+Content-Type: application/json
+
+
+###특정 가게 미션 조회 
+GET http://localhost:3000/api/stores/1/missions?cursor
+Content-Type: application/json
+
+###내가 진행중인 미션목록 조회 
+GET http://localhost:3000/api/users/1/missions/in-progress?cursor=0
+Content-Type: application/json
+
+
+###내가 진행 중인 미션을 진행완료로 바꾸기 
+PUT http://localhost:3000/api/users/1/missions/1/complete
+Content-Type: application/json
