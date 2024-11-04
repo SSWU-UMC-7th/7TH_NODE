@@ -5,7 +5,7 @@ export const bodyToReview = (body) => {
     };
 };
 
-export const responseFromReviews = (user_store_review) => {
+export const responseFromReview = (user_store_review) => {
     return {
         id: user_store_review.id,
         storeId: user_store_review.store_id,
@@ -13,13 +13,3 @@ export const responseFromReviews = (user_store_review) => {
         content: user_store_review.content,
     };
 };
-
-// 여러 리뷰에 대한 응답 형식으로 변환
-export const responseFromReviewList = (review) => {
-    return {
-      data: review.map((review) => responseFromReviews(review)),
-      pagination: {
-        cursor: review.length ? review[review.length - 1].id : null,
-      },
-    };
-  };

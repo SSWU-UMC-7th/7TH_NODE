@@ -1,13 +1,11 @@
-import { getUserReview } from '../repositories/user.repository.js';
-import { responseFromReviews } from '../dtos/review.dto.js';
+import { responseFromUser } from '../dtos/user.dto.js';
+import {
+  addUser,
+  getUser,
+  getUserPreferencesByUserId,
+  setPreference,
+} from "../repositories/user.repository.js";
 
-// 사용자 리뷰 목록 조회
-export const listUserReview = async (userId, cursor) => {
-  const review = await getUserReview(userId, cursor);
-  return responseFromReview(review); // 변환된 리뷰 데이터 반환
-};
-
-// 사용자 가입 처리
 export const userSignUp = async (data) => {
   const joinUserId = await addUser({
     email: data.email,
@@ -23,12 +21,12 @@ export const userSignUp = async (data) => {
     throw new Error("이미 존재하는 이메일입니다.");
   }
 
-  for (const preference of data.preference) {
+  for (const preference of data.preferences) {
     await setPreference(joinUserId, preference);
   }
 
   const user = await getUser(joinUserId);
-  const preference = await getUserPreferencesByUserId(joinUserId);
+  const preferences = await getUserPreferencesByUserId(joinUserId);
 
-  return responseFromUser({ user, preference });
+  return responseFromUser({ user, preferences });
 };

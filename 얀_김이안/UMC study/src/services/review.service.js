@@ -1,6 +1,6 @@
 import {addReview, getReviewById} from "../repositories/review.repository.js";
 import { storeExists } from "../repositories/store.repository.js";
-import { responseFromReviews } from "../dtos/review.dto.js";
+import { responseFromReview } from "../dtos/review.dto.js";
 
 export const reviewSignUp = async (data) => {
     // 리뷰를 추가하려는 가게 존재 여부 확인
