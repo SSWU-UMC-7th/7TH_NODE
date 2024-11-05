@@ -1,11 +1,12 @@
 import { challengeSignUp } from "../services/challenge.service.js";
+import { StatusCodes } from "http-status-codes";
+import { bodyToChallenge } from "../dtos/challenge.dto.js";
 
-export const handleChallengeSignUp = async (req, res) => {
-    try {
-        const challengeData = req.body;
-        const challenge = await challengeSignUp(challengeData);
-        res.status(201).json(challenge);
-    } catch (err) {
-        res.status(500).json({message: err.message});
-    }
+export const handleChallengeSignUp = async (req, res, next) => {
+  try {
+    const challenge = await challengeSignUp(bodyToChallenge(req.body));
+    res.status(StatusCodes.CREATED).success(challenge);
+  } catch (error) {
+    next(error);
+  }
 };
