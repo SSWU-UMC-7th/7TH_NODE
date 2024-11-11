@@ -1,12 +1,13 @@
+// review.controller.js
 import { reviewSignUp } from "../services/review.service.js";
+import { StatusCodes } from "http-status-codes";
 
 export const handleReviewSignUp = async (req, res) => {
     try {
         const reviewData = req.body;
-        console.log(req.body);
-        const reivew = await reivewSignUp(reivewData);
-        res.status(201).json(reivew);
+        const review = await reviewSignUp(reviewData);
+        res.status(StatusCodes.CREATED).json({ success: true, data: review });
     } catch (err) {
-        res.status(500).json({message: err.message});
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: err.message });
     }
 };
