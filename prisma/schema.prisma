@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  email         String   @id @unique(map: "email") @db.VarChar(100) 
+  name          String   @db.VarChar(50)
+  gender        String   @db.VarChar(20)
+  password      String   @db.VarChar(255)
+  birth         DateTime @db.Date
+  address       String   @db.VarChar(100)
+  detailAddress String?  @map("detail_address") @db.VarChar(100)
+  phoneNumber   String   @map("phone_number") @db.VarChar(100)
+
+  @@map("user")
+}
+
+model review {
+  id        Int    @id @default(autoincrement())
+  userEmail String
+  storeId   Int
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+}
+
+model mission {
+  mission_id Int      @id @default(autoincrement())
+  storeId    Int
+  name       String   @db.VarChar(100)
+  description String  
+  startDate  DateTime
+  endDate    DateTime
+  reward     String @db.VarChar(100)
+  createdAt  DateTime @default(now())
+}
+
+model mission_Challenge {
+  challenge_id Int      @id @default(autoincrement())
+  userEmail    String   @db.VarChar(100)
+  missionId    Int
+  status       String   @default("ongoing")
+  createdAt    DateTime @default(now())
+  
+  // Relations (if needed)
+  mission      Mission  @relation(fields: [missionId], references: [mission_id])
+}
