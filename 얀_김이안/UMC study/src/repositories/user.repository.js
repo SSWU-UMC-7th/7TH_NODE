@@ -62,6 +62,38 @@ export const getUserReview = async (userId, cursor = 0) => {
   return review;
 };
 
+export const getAllStoreReviews = async (storeId, cursor) => {
+  const reviews = await prisma.reviews.findMany({
+    select: {
+      id: true,
+      review_text: true, // 리뷰 내용
+      rating: true,      // 리뷰 평점
+      created_at: true,  // 작성일
+      store: {
+        select: { id: true, store_name: true },
+      },
+      user: {
+        select: {
+          id: true,
+          user_name: true,
+          email: true,
+          gender: true,
+          birth: true,
+          address: true,
+          detailAddress: true,
+          phoneNumber: true,
+        },
+      },
+    },
+    where: { storeId: storeId, id: { gt: cursor } },
+    orderBy: { id: "asc" },
+    take: 5,
+  });
+  console.log("Reviews found:", reviews); // 쿼리 결과 로그
+
+  return reviews;
+};
+
 export const listUserReviews = async (storeId, cursor) => {
   const reviews = await prisma.userStoreReview.findMany({
     select: { id: true, content: true, store: true, user: true },

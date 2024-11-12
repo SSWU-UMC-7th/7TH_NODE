@@ -35,9 +35,7 @@ export const bodyToUser = (body) => {
 };
 
 export const responseFromUser = ({ user, preferences }) => {
-  const preferFoods = preferences.map(
-    (preference) => preference.foodCategory.name
-  );
+  const preferCategory = [...new Set(preferences.map((pref) => pref.name))];
 
   return {
     email: user.email,

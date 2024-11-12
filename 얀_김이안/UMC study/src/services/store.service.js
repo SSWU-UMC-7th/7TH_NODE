@@ -1,4 +1,5 @@
-import { addStore, getStoreById, getAllStoreReviews } from "../repositories/store.repository.js";
+import { addStore, getStoreById } from "../repositories/store.repository.js";
+import { getAllStoreReviews } from "../repositories/user.repository.js";
 import { responseFromStore, responseFromReviews } from "../dtos/store.dto.js";
 import { StoreReivewError, StoreError } from "../errors.js";
 
