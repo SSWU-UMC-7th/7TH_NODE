@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model regions {
+  id          Int        @id @default(autoincrement())
+  region_name String     @unique @db.VarChar(100)
+  missions    missions[]
+  stores      stores[]
+
+  @@map("regions")
+}
+
+model users {
+  id                  Int                   @id @default(autoincrement())
+  user_name           String                @unique @db.VarChar(50)
+  password            String?               @db.VarChar(255)
+  email               String                @unique @db.VarChar(100)
+  created_at          DateTime              @default(now()) @db.Timestamp(6)
+  gender              String                @db.VarChar(15)
+  birth               DateTime?             @db.Date
+  address             String                @db.VarChar(255)
+  detailAddress       String?               @map("detail_address") @db.VarChar(255)
+  phoneNumber         String                @map("phone_number") @db.VarChar(20)
+  reviews             reviews[]
+  user_favor_category user_favor_category[]
+  user_missions       user_missions[]
+  user_points         user_points[]
+
+  @@map("users")
+}
+
+model reviews {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  storeId     Int      @map("store_id")
+  rating      Int
+  review_text String?  @db.Text
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  store       stores   @relation(fields: [storeId], references: [id])
+  user        users    @relation(fields: [userId], references: [id])
+
+  @@index([storeId], map: "reviews_store_id_fkey")
+  @@index([userId], map: "reviews_user_id_fkey")
+  @@map("reviews")
+}
+
+model missions {
+  id             Int             @id @default(autoincrement())
+  regionId       Int?            @map("region_id")
+  mission_status MissionStatus
+  description    String          @db.Text
+  created_at     DateTime        @default(now()) @db.Timestamp(6)
+  storeId        Int?            @map("store_id")
+  region         regions?        @relation(fields: [regionId], references: [id])
+  store          stores?         @relation(fields: [storeId], references: [id])
+  user_missions  user_missions[]
+
+  @@index([regionId], map: "missions_region_id_fkey")
+  @@index([storeId], map: "missions_store_id_fkey")
+  @@map("missions")
+}
+
+model stores {
+  id            Int             @id @default(autoincrement())
+  store_name    String          @db.VarChar(100)
+  regionId      Int?            @map("region_id")
+  store_address String?         @db.VarChar(255)
+  missions      missions[]
+  reviews       reviews[]
+  region        regions?        @relation(fields: [regionId], references: [id])
+  user_missions user_missions[]
+
+  @@index([regionId], map: "stores_region_id_fkey")
+  @@map("stores")
+}
+
+model user_points {
+  id            Int             @id @default(autoincrement())
+  userId        Int             @map("user_id")
+  points        Int             @default(0)
+  updated_at    DateTime        @default(now()) @db.Timestamp(6)
+  user_missions user_missions[]
+  user          users           @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "user_points_user_id_fkey")
+  @@map("user_points")
+}
+
+model user_missions {
+  id           Int               @id @default(autoincrement())
+  userId       Int               @map("user_id")
+  missionId    Int               @map("mission_id")
+  storeId      Int               @map("store_id")
+  pointId      Int               @map("point_id")
+  status       UserMissionStatus
+  completed_at DateTime?
+  mission      missions          @relation(fields: [missionId], references: [id])
+  point        user_points       @relation(fields: [pointId], references: [id])
+  store        stores            @relation(fields: [storeId], references: [id])
+  user         users             @relation(fields: [userId], references: [id])
+
+  @@index([missionId], map: "user_missions_mission_id_fkey")
+  @@index([pointId], map: "user_missions_point_id_fkey")
+  @@index([storeId], map: "user_missions_store_id_fkey")
+  @@index([userId], map: "user_missions_user_id_fkey")
+  @@map("user_missions")
+}
+
+model food_category {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @unique @db.VarChar(100)
+  user_favor_category user_favor_category[]
+
+  @@map("food_category")
+}
+
+model user_favor_category {
+  id             Int           @id @default(autoincrement())
+  userId         Int           @map("user_id")
+  foodCategoryId Int           @map("food_category_id")
+  foodCategory   food_category @relation(fields: [foodCategoryId], references: [id])
+  user           users         @relation(fields: [userId], references: [id])
+
+  @@index([foodCategoryId], map: "f_category_id")
+  @@index([userId], map: "user_id_idx")
+  @@map("user_favor_category")
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.Text
+  expiresAt DateTime @map("expires_at")
+
+  @@map("session")
+}
+
+enum MissionStatus {
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum UserMissionStatus {
+  IN_PROGRESS
+  COMPLETED
+}
